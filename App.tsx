@@ -1,20 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import HomeScreen from './src/screens/HomeScreen';
+import {StyleSheet, SafeAreaView } from 'react-native';
+
+const styles = StyleSheet.create({
+  globalContainer: {
+    flex: 1, // Faz com que o container ocupe toda a tela
+    backgroundColor: '#2d2c2cff', // Define o fundo como preto (ou '#121212' para um preto mais suave)
+  },
+});
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.globalContainer}>
+      <HomeScreen />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
