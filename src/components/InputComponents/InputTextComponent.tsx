@@ -28,6 +28,7 @@ const InputTextComponent: React.FC<InputTextComponentProp> = ({
             <TextInput 
                 style={InputStyles.input}
                 placeholder={placeholder}
+                placeholderTextColor={'white'}
                 onChangeText={setValue} // Atualiza o state local
                 value={value}
                 keyboardType={keyboardType}

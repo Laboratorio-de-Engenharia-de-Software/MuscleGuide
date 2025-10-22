@@ -9,17 +9,18 @@ const InputStyles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
         fontWeight: 'bold',
-        color: '#333',
+        color: 'white',
     },
     input: {
         height: 45,
-        borderColor: '#ddd',
+        borderColor: '#1E1E1E',
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
-        backgroundColor: '#fff',
+        backgroundColor: '#1E1E1E',
         fontSize: 16,
-    },
+        color: 'white'
+        },
 });
 
 export default InputStyles;

@@ -8,3 +8,5 @@ const InputSenha: React.FC = () => (
         password={true} 
     />
 );
+
+export default InputSenha;
