@@ -9,11 +9,25 @@ interface HeaderAppProps {
 const HeaderApp: React.FC<HeaderAppProps> = ({ onPress }) => {
     {
         return (
-            <View style={{ flexDirection: 'row', padding: 16, paddingTop: 32, alignItems: 'center', justifyContent: 'flex-start', backgroundColor: '#1E1E1E', gap: 86 }}>
+            <View style={{
+                flexDirection: 'row',
+                padding: 16,
+                paddingTop: 32,
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                backgroundColor: '#1E1E1E',
+                gap: 86
+            }}>
                 <TouchableOpacity onPress={onPress}>
                     <ChevronLeft color={'#3269D2'} size={25} />
                 </TouchableOpacity>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>Muscle Guide</Text>
+                <Text style={{
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                    color: 'white'
+                }}>
+                    Muscle Guide
+                </Text>
             </View>
         )
     }

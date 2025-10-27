@@ -20,7 +20,7 @@ const GradeCardComponent: React.FC<GradeCardComponentProps> = ({ imagem, title, 
                     resizeMode="cover"
                 />
             </View>
-            <View>
+            <View style={{alignItems: 'flex-start', justifyContent: 'flex-start', gap: 0, height: 50,}}>
                 <Text style={GradeStyles.title}>{title}</Text>
                 <Text style={GradeStyles.subtitle}>{subtitle}</Text>
             </View>

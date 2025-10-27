@@ -24,8 +24,8 @@ const TREINO_A = require('../../assets/images/Treinos/chest_image.png');
 const DOUBLE_INCLINADO = require('../../assets/images/Exercicios/double_press_inclinado.gif');
 const DOUBLE_RETO = require('../../assets/images/Exercicios/double_press_reto.gif');
 const CRUZ_MAQUINA = require('../../assets/images/Exercicios/crucifixo_maquina.gif');
-const TRICEPS_CORDA = require('../../assets/images/Exercicios/triceps_corda.gif'); 
-const TRICEPS_TESTA = require('../../assets/images/Exercicios/triceps_testa.gif'); 
+const TRICEPS_CORDA = require('../../assets/images/Exercicios/triceps_corda.gif');
+const TRICEPS_TESTA = require('../../assets/images/Exercicios/triceps_testa.gif');
 const ELEVACAO_LATERAL = require('../../assets/images/Exercicios/elevacao_lateral.gif');
 
 // --- Treino B (Pernas) ---
@@ -87,7 +87,7 @@ export const TRAINING_DATA = [
                 tituloExercicio: 'Tríceps Testa',
                 descricao: 'Volume: 3 séries x 12 repetições',
             },
-            
+
             {
                 id: 'ex-6',
                 image: ELEVACAO_LATERAL,
@@ -138,7 +138,7 @@ export const TRAINING_DATA = [
                 tituloExercicio: 'Extensão de Panturrillha no Smith',
                 descricao: 'Volume: 3 séries x 12 repetições',
             },
-            
+
         ],
     },
     {

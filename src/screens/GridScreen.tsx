@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, ListRenderItemInfo } from "react-native";
+import { View, FlatList, StyleSheet, ListRenderItemInfo } from "react-native";
 import GradeCardComponent from "../components/GradeCard/GradeCardComponent"
 import HeaderApp from "../components/Header/HeaderApp";
 import { StackScreenProps } from "@react-navigation/stack";

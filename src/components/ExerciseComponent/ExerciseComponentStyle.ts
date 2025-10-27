@@ -5,12 +5,14 @@ export const styles = StyleSheet.create({
     Component: {
         borderCurve: 'circular',
         borderRadius: 16,
-        marginVertical: 42,
+        marginVertical: 8,
         backgroundColor: '#3269D2'
     },
     Gif: {
-        height: 208,
+        height: 300,
         width: '100%',
+        // borderTopStartRadius: 16,
+        // borderTopEndRadius: 16,
     },
     ImageGif: {
         borderCurve: 'circular',
@@ -30,7 +32,7 @@ export const styles = StyleSheet.create({
     TextTitle: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 16
     },
     TextSubtitle: {
         color: 'white',

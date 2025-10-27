@@ -3,7 +3,7 @@ import ExerciseComponent from "../components/ExerciseComponent/ExerciseComponent
 import HeaderApp from "../components/Header/HeaderApp";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { TRAINING_DATA } from "../data/trainings";
 
 type ExerciseListScreenProps = StackScreenProps<RootStackParamList, 'ExerciseList'>;
@@ -15,16 +15,21 @@ const ExerciseListScreen: React.FC<ExerciseListScreenProps> = ({ navigation, rou
 
     // 2. Usar useMemo para buscar o treino de forma eficiente
     const selectedTraining = useMemo(() => {
-        // Explicação: Filtramos o TRAINING_DATA para encontrar o objeto cujo ID corresponde ao ID passado pela navegação.
-        const treino = TRAINING_DATA.find(t => t.id === treinoId);
-        // O navigation.setOptions permite mudar dinamicamente o título do header da tela.
-        if (treino) {
-            navigation.setOptions({ title: treino.titulo });
+        // Explicação: useMemo APENAS ENCONTRA os dados do treino, nada mais.
+        // Nenhuma chamada a 'navigation.setOptions' pode estar aqui dentro!
+        return TRAINING_DATA.find(t => t.id === treinoId);
+    }, [treinoId]); 
+    
+    // 3. LÓGICA DE EFEITO COLATERAL (setOptions)
+    useEffect(() => {
+        // Explicação: O useEffect é executado APÓS a primeira renderização e sempre que
+        // 'selectedTraining' mudar, sendo o local seguro para chamar setOptions.
+        if (selectedTraining) {
+            navigation.setOptions({ title: selectedTraining.titulo });
         }
-        return treino;
-    }, [treinoId, navigation]); // Dependências: Roda se o treinoId ou a navegação mudar
+    }, [selectedTraining, navigation]); // Dependências: Roda quando selectedTraining muda.
 
-    // Se o treino não for encontrado ou não tiver exercícios, mostre uma tela de erro/vazia.
+    // Se o treino não for encontrado...
     if (!selectedTraining) {
         return <View style={styles.errorContainer}><Text style={styles.errorText}>Treino não encontrado!</Text></View>;
     }

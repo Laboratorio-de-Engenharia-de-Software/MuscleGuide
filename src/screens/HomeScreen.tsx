@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import DailyTraining from '../components/DailyTraining/DailyTraining';
 import ButtonComponent from '../components/ButtonComponents/ButtonComponent';
 // import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -47,7 +47,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 <DailyTraining
                     title={treinoA?.titulo || 'Treino não encontrado'}
                     subtitle={treinoA?.subtitulo || 'Verifique os dados'}
-                />            </View>
+                />
+            </View>
             <View style={{ margin: 8 }}>
                 {/* <ButtonComponent nome='Iniciar Treino' onPress={goToGrid} /> */}
                 <ButtonStartComponent onPress={startTreinoA} />
