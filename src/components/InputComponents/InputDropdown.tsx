@@ -2,7 +2,7 @@
 import InputStyles from './InputStyles';
 import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import styles from '../DailyTraining/styles';
+import styles from '../DailyTraining/DailyTrainningStyles';
 
 const opcoes = [
     { label: 'Selecione', value: '' },

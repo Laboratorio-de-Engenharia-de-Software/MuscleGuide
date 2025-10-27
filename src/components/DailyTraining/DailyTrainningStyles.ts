@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: '60%', // Defina uma altura fixa ou use porcentagem do pai, ex: '30%'
+    height: '100%', // Defina uma altura fixa ou use porcentagem do pai, ex: '30%'
     borderRadius: 10, // Bordas arredondadas como na imagem
     justifyContent: 'flex-end', // Alinha o textContainer no final (inferior)
     alignItems: 'flex-start', // Alinha o textContainer no início (esquerda)
