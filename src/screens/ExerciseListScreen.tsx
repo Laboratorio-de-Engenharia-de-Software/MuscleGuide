@@ -18,8 +18,8 @@ const ExerciseListScreen: React.FC<ExerciseListScreenProps> = ({ navigation, rou
         // Explicação: useMemo APENAS ENCONTRA os dados do treino, nada mais.
         // Nenhuma chamada a 'navigation.setOptions' pode estar aqui dentro!
         return TRAINING_DATA.find(t => t.id === treinoId);
-    }, [treinoId]); 
-    
+    }, [treinoId]);
+
     // 3. LÓGICA DE EFEITO COLATERAL (setOptions)
     useEffect(() => {
         // Explicação: O useEffect é executado APÓS a primeira renderização e sempre que
@@ -37,7 +37,8 @@ const ExerciseListScreen: React.FC<ExerciseListScreenProps> = ({ navigation, rou
     const exercises = selectedTraining.exercises;
     const goToGrid = () => {
         // Altere 'Register' para o nome da sua rota de cadastro
-        navigation.navigate('Grid');
+        // navigation.navigate('TreinosTab');
+        navigation.navigate('Tabs', { screen: 'TreinosTab', });
     };
     return (
         <ScrollView style={{ backgroundColor: 'black', }}>

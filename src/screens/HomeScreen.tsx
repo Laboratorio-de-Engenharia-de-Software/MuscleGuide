@@ -5,17 +5,24 @@ import ButtonComponent from '../components/ButtonComponents/ButtonComponent';
 import { RootStackParamList } from '../../App';
 import ButtonStartComponent from '../components/ButtonComponents/ButtonStartComponent';
 import HeaderHome from '../components/Header/HeaderHome';
-import { StackScreenProps } from '@react-navigation/stack';
+// import { StackScreenProps } from '@react-navigation/stack';
 import { TRAINING_DATA } from '../data/trainings'; // Importe os dados mocados!
 import { useMemo } from 'react';
-
+import { TabStackParamList } from '../routes/TabRoutes'; // Ajuste o caminho se necessário!
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 // interface HomeScreenProps {
 
 // }
 
-type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
-
-
+// type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
+type HomeScreenProps = CompositeScreenProps<
+    // Tipo das props DESTA tela dentro do Tab Navigator
+    BottomTabScreenProps<TabStackParamList, 'HomeTab'>, 
+    // Tipo das props do Stack Navigator PAI (que o Tab Navigator está aninhado)
+    StackScreenProps<RootStackParamList>
+>;
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
     // const navigation = useNavigation<LoginScreenNavigationProp>();

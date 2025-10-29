@@ -28,7 +28,9 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
 
     const goToHome = () => {
         // Altere 'Register' para o nome da sua rota de cadastro
-        navigation.navigate('Home');
+        // navigation.navigate('HomeTab');
+        navigation.navigate('Tabs', { screen: 'HomeTab', });
+
     };
 
     // const goToRegister = () => {

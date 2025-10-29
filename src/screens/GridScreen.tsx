@@ -4,8 +4,18 @@ import HeaderApp from "../components/Header/HeaderApp";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { TRAINING_DATA, TrainingItem } from '../data/trainings'; // Importe os dados mocados!
+import { CompositeScreenProps } from "@react-navigation/native";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { TabStackParamList } from "../routes/TabRoutes";
 
-type GridScreenProps = StackScreenProps<RootStackParamList, 'Grid'>;
+// type GridScreenProps = StackScreenProps<RootStackParamList, 'Grid'>;
+
+type GridScreenProps = CompositeScreenProps<
+    // Tipo das props DESTA tela dentro do Tab Navigator
+    BottomTabScreenProps<TabStackParamList, 'TreinosTab'>, 
+    // Tipo das props do Stack Navigator PAI (que você usa para ir para ExerciseList)
+    StackScreenProps<RootStackParamList>
+>;
 
 const GridScreen: React.FC<GridScreenProps> = ({ navigation }) => {
 
@@ -20,7 +30,7 @@ const GridScreen: React.FC<GridScreenProps> = ({ navigation }) => {
 
     const goToHome = () => {
         // Altere 'Register' para o nome da sua rota de cadastro
-        navigation.navigate('Home');
+        navigation.navigate('HomeTab');
     };
 
     const renderTreino = ({ item }: ListRenderItemInfo<TrainingItem>) => {
