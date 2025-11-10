@@ -1,0 +1,48 @@
+// 1. Configuração do Data Source
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Lê a variável do .env
+}
+
+// 2. Configuração do Generator
+generator client {
+  provider = "prisma-client-js" 
+}
+
+// 3. ENUM: Mapeando nosso Value Object (Objetivo)
+enum GoalType {
+  MASS_GAIN        
+  WEIGHT_LOSS      
+  MAINTENANCE      
+}
+
+// 4. MODEL: Mapeando nossa Entidade (User)
+model User {
+  id               String       @id @default(uuid())
+  firstName        String
+  lastName         String?      
+  dateOfBirth      DateTime
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt      
+  email            String       @unique         
+  passwordHash     String       
+  goalType         GoalType  
+  
+  // Relacionamento (Futuro)
+  workoutSessions  WorkoutSession[]
+  
+  @@map("users") 
+}
+
+// 5. Futuro Model: Sessão de Treino (Para referência de relacionamento)
+model WorkoutSession {
+  id               String    @id @default(uuid())
+  startTime        DateTime  @default(now())
+  endTime          DateTime?
+  isCompleted      Boolean   @default(false)
+  
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+  
+  @@map("workout_sessions")
+}

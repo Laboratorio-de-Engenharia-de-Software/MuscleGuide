@@ -1,0 +1,17 @@
+// packages/domain/tsconfig.json
+{
+  // A partir do packages/domain, você sobe um nível para a raiz
+  "extends": "../..//tsconfig.base.json", 
+  "compilerOptions": {
+    // O domínio não deve ter JSX
+    "jsx": "react-native", 
+    
+    // O domínio deve gerar arquivos .js para que apps/mobile e apps/api possam usar
+    "module": "esnext", 
+    "outDir": "dist",
+    "declaration": true, // Importante para o pacote funcionar bem
+    "isolatedModules": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

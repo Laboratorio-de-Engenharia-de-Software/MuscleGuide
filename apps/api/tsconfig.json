@@ -1,0 +1,38 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // ⚠️ CORREÇÃO CRUCIAL: Voltando ao padrão robusto do Nest/Prisma
+    "module": "commonjs", 
+    "moduleResolution": "node", // Usar a resolução padrão do Node
+
+    // Configurações do Nest.js e Tipagem
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    
+    // Configurações de Compilação e Caminho
+    "baseUrl": "./src", // Correto: Resolve aliases a partir de 'src'
+    "target": "ES2020", // Alterei para ES2020 para melhor compatibilidade com a LTS do Node.js v20/v24
+    "sourceMap": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "removeComments": true,
+    
+    // Flags de Strict Mode (mantidas do seu original)
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+
+    // Aliases de Caminho (Paths)
+    "paths": {
+      "@app-auth/*": ["modules/auth-user-profile/*"],
+      "@shared/*": ["shared/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"] 
+}
