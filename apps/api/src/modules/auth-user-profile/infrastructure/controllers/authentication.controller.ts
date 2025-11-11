@@ -1,7 +1,8 @@
 import { AuthenticateUserUseCase } from "@app-auth/application/use-cases/authenticate-user.usecase";
 import { LoginUserDto } from "../dtos/login-user.dto";
-import { Body, Controller, HttpCode, HttpStatus, Inject, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Req, UseGuards } from "@nestjs/common";
 import { AUTHENTICATE_USE_CASE_TOKEN } from "@app-auth/auth-user-profile.module";
+import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 
 @Controller('v1/auth')
 export class AuthenticationController {
@@ -19,5 +20,14 @@ export class AuthenticationController {
         })
 
         return output;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('profile')
+    getProfile(@Req() req) {
+        return {
+            message: 'Acesso Autorizado! Esta rota está protegida.',
+            user: req.user,
+        }
     }
 }

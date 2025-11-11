@@ -11,6 +11,8 @@ import { ITokenService } from './domain/services/token.service';
 import { AuthenticationController } from './infrastructure/controllers/authentication.controller';
 import { JwtTokenService } from './domain/services/jwt-token.service';
 import { AuthenticateUserUseCase } from './application/use-cases/authenticate-user.usecase';
+import { JwtAuthGuard } from './infrastructure/guards/jwt-auth.guard';
+import { JwtStrategy } from './infrastructure/guards/jwt.strategy';
 // Importar o PrismaClient puro não é necessário se usarmos o PrismaService
 
 export const USER_REPOSITORY_TOKEN = Symbol('IUserRepository');
@@ -67,10 +69,13 @@ const ApplicationProviders: Provider[] = [
     ...AuthenticationProviders,
     JwtTokenService,
     ControllerAuthenticationProvider,
+    JwtStrategy,
+    JwtAuthGuard,
   ],
   exports: [
     RegisterUserUseCase,
     AUTHENTICATE_USE_CASE_TOKEN,
+    JwtAuthGuard,
   ],
 })
 export class AuthUserProfileModule {}
