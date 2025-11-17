@@ -1,7 +1,11 @@
+// ----------------------------------------------------
+// PRISMA SCHEMA COMPLETO
+// ----------------------------------------------------
+
 // 1. Configuração do Data Source
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // Lê a variável do .env
+  url      = env("DATABASE_URL")
 }
 
 // 2. Configuração do Generator
@@ -9,32 +13,48 @@ generator client {
   provider = "prisma-client-js" 
 }
 
-// 3. ENUM: Mapeando nosso Value Object (Objetivo)
+// ENUMS DE FOCO E OBJETIVO
+// ----------------------------------------------------
+
+// 3. ENUM: Mapeando nosso Value Object (Objetivo do Usuário)
 enum GoalType {
-  MASS_GAIN        
-  WEIGHT_LOSS      
-  MAINTENANCE      
+  MASS_GAIN       
+  WEIGHT_LOSS     
+  MAINTENANCE     
 }
+
+// 🚨 NOVO ENUM: Define o tipo de foco do treino
+enum WorkoutFocus {
+  MASS_GAIN       
+  WEIGHT_LOSS     
+  MAINTENANCE     
+}
+
+// MODELOS DE AUTENTICAÇÃO E PERFIL
+// ----------------------------------------------------
 
 // 4. MODEL: Mapeando nossa Entidade (User)
 model User {
   id               String       @id @default(uuid())
   firstName        String
-  lastName         String?      
+  lastName         String?     
   dateOfBirth      DateTime
   createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt      
+  updatedAt        DateTime     @updatedAt     
   email            String       @unique         
   passwordHash     String       
   goalType         GoalType  
   
-  // Relacionamento (Futuro)
+  // Relacionamentos:
   workoutSessions  WorkoutSession[]
+
+  // 🚨 CORREÇÃO: Campo inverso para o relacionamento 1:1 com UserWorkout
+  userWorkout      UserWorkout? 
   
-  @@map("users") 
+  @@map("users")
 }
 
-// 5. Futuro Model: Sessão de Treino (Para referência de relacionamento)
+// 5. Model: Sessão de Treino (Sessions)
 model WorkoutSession {
   id               String    @id @default(uuid())
   startTime        DateTime  @default(now())
@@ -45,4 +65,104 @@ model WorkoutSession {
   user             User      @relation(fields: [userId], references: [id])
   
   @@map("workout_sessions")
+}
+
+// MODELOS DE TREINAMENTO (CORE)
+// ----------------------------------------------------
+
+// 1. ENUM: MuscleGroup 
+enum MuscleGroup {
+  CHEST
+  BACK
+  LEGS
+  SHOULDERS
+  BICEPS
+  TRICEPS
+  CORE
+}
+
+model ExerciseAlternative {
+  mainExerciseId     String
+  alternativeId      String
+
+  // Relacionamento com o exercício principal
+  mainExercise       Exercise @relation("MainAlternatives", fields: [mainExerciseId], references: [id])
+  
+  // Relacionamento com o exercício que é o alternativo
+  alternative        Exercise @relation("AlternativeFor", fields: [alternativeId], references: [id])
+
+  @@id([mainExerciseId, alternativeId])
+  @@map("exercise_alternatives")
+}
+
+// 2. MODEL: Exercise (Agregado 'Exercicio')
+model Exercise {
+  id               String          @id @default(uuid())
+  name             String
+  gifUrl           String
+  isBasic          Boolean         @default(false)
+
+  targets          ExerciseMuscleTarget[]
+  workoutItems     WorkoutItem[]
+  mainAlternatives    ExerciseAlternative[] @relation("MainAlternatives")
+  alternativeFor      ExerciseAlternative[] @relation("AlternativeFor")
+  @@map("exercises")
+}
+
+// 3. TABELA DE LIGAÇÃO (MuscleGroup)
+model ExerciseMuscleTarget {
+  exerciseId       String
+  muscleGroup      MuscleGroup 
+  
+  exercise         Exercise @relation(fields: [exerciseId], references: [id])
+  
+  @@id([exerciseId, muscleGroup]) 
+  @@map("exercise_muscle_targets")
+}
+
+
+// 4. MODEL: Workout (Agregado 'Treino')
+model Workout {
+  id               String          @id @default(uuid())
+  name             String          
+  description      String
+  
+  // 🚨 NOVO CAMPO: Liga o Treino ao seu objetivo de foco
+  focus            WorkoutFocus 
+  
+  items            WorkoutItem[]
+  userWorkouts     UserWorkout[] 
+
+  @@map("workouts")
+}
+
+// 5. MODEL: WorkoutItem (Entidade Aninhada)
+model WorkoutItem {
+  id               String          @id @default(uuid())
+  order            Int             
+
+  series           Int
+  repetitions      Int
+  restTimeSeconds  Int
+
+  workoutId        String
+  workout          Workout @relation(fields: [workoutId], references: [id])
+
+  exerciseId       String
+  exercise         Exercise @relation(fields: [exerciseId], references: [id])
+
+  @@map("workout_items")
+}
+
+// 6. MODEL: Ligação do Usuário ao Treino (1:1)
+model UserWorkout {
+  id               String          @id @default(uuid())
+  userId           String          @unique 
+  workoutId        String
+  isActive         Boolean         @default(true) 
+
+  user             User      @relation(fields: [userId], references: [id])
+  workout          Workout   @relation(fields: [workoutId], references: [id])
+
+  @@map("user_workouts")
 }
