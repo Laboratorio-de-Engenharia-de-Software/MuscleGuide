@@ -1,0 +1,21 @@
+// apps/mobile/tsconfig.json
+{
+  // A partir do mobile, você sobe dois níveis para a raiz
+  "extends": "../../tsconfig.base.json", 
+  "compilerOptions": {
+    // Sobrescreve apenas as regras que o mobile precisa (ex: JSX)
+    "jsx": "react-native"
+    // Remove "strict: true" se já estiver no tsconfig.base
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
+}
+
+
+
+
+// {
+//   "extends": "expo/tsconfig.base",
+//   "compilerOptions": {
+//     "strict": true
+//   }
+// }
